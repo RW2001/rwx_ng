@@ -687,9 +687,9 @@
     #define DEFAULT_Ki_LIST {   2.62,   2.62 }
     #define DEFAULT_Kd_LIST {  78.81,  78.81 }
   #else
-    #define DEFAULT_Kp  28.72
-    #define DEFAULT_Ki   2.62
-    #define DEFAULT_Kd  78.81
+    #define DEFAULT_Kp  13.66//28.72
+    #define DEFAULT_Ki   0.89//2.62
+    #define DEFAULT_Kd  52.17//78.81
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -776,9 +776,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 462.10
-  #define DEFAULT_bedKi  85.47
-  #define DEFAULT_bedKd 624.59
+  #define DEFAULT_bedKp 269.91 //462.10
+  #define DEFAULT_bedKi 51.91 //85.47
+  #define DEFAULT_bedKd 935.69 //624.59
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -1199,18 +1199,18 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 } //RWX TODO
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 840, 415 } //RWX 415 for Clockwork2 
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 500, 500, 5, 25 } //RWX 5 25
+#define DEFAULT_MAX_FEEDRATE          { 500, 500, 30, 45 } //RWX 5 25
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits //RWX TODO ??
 #endif
 
 /**
@@ -1308,7 +1308,7 @@
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN //RWX TODO
 
 // Force the use of the probe for Z-axis homing
-#define USE_PROBE_FOR_Z_HOMING //RWX
+//#define USE_PROBE_FOR_Z_HOMING //RWX !!!!!!!!!!
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1415,14 +1415,14 @@
   #define PROBE_DEPLOY_FEEDRATE (60*60)  // (mm/min) Probe deploy speed
   #define PROBE_STOW_FEEDRATE   (130*60)  // (mm/min) Probe stow speed 133
 
-  #define MAG_MOUNTED_DEPLOY_1 { PROBE_DEPLOY_FEEDRATE, { 34, 3, 25 } }  // Move to side Dock & Attach probe // RWX
-  #define MAG_MOUNTED_DEPLOY_2 { PROBE_DEPLOY_FEEDRATE, { 34, 15, 25 } }  // Move probe off dock // RWX
+  #define MAG_MOUNTED_DEPLOY_1 { PROBE_DEPLOY_FEEDRATE, { 34, 3,30 } }  // Move to side Dock & Attach probe // RWX
+  #define MAG_MOUNTED_DEPLOY_2 { PROBE_DEPLOY_FEEDRATE, { 34, 15, 30 } }  // Move probe off dock // RWX
   //#define MAG_MOUNTED_DEPLOY_3 { PROBE_DEPLOY_FEEDRATE, { ,   0,  0 } }  // Extra move if needed
   //#define MAG_MOUNTED_DEPLOY_4 { PROBE_DEPLOY_FEEDRATE, {   0,   0,  0 } }  // Extra move if needed
   //#define MAG_MOUNTED_DEPLOY_5 { PROBE_DEPLOY_FEEDRATE, {   0,   0,  0 } }  // Extra move if needed
-  #define MAG_MOUNTED_STOW_1   { PROBE_STOW_FEEDRATE,   { 34, 15, 25 } }  // Move to dock // RWX
-  #define MAG_MOUNTED_STOW_2   { PROBE_STOW_FEEDRATE,   { 34, 3, 25 } }  // Place probe in dock // RWX
-  #define MAG_MOUNTED_STOW_3   { PROBE_STOW_FEEDRATE,   { 60, 0, 25 } }  // Side move to remove probe // RWX
+  #define MAG_MOUNTED_STOW_1   { PROBE_STOW_FEEDRATE,   { 34, 15, 30 } }  // Move to dock // RWX
+  #define MAG_MOUNTED_STOW_2   { PROBE_STOW_FEEDRATE,   { 34, 3, 30 } }  // Place probe in dock // RWX
+  #define MAG_MOUNTED_STOW_3   { PROBE_STOW_FEEDRATE,   { 60, 0, 30 } }  // Side move to remove probe // RWX
   //#define MAG_MOUNTED_STOW_4   { PROBE_STOW_FEEDRATE,   { 210, 114, 20 } }  // Side move to remove probe
   //#define MAG_MOUNTED_STOW_5   { PROBE_STOW_FEEDRATE,   {   0,   0,  0 } }  // Extra move if needed
 #endif
@@ -1514,11 +1514,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0,-45, -18 } // -39 - 12 0 //RWX 40
+#define NOZZLE_TO_PROBE_OFFSET { 0,-45, -50 } // -39 - 12 0 //RWX 40 -18
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10 //RWX 10
+#define PROBING_MARGIN 15 //RWX 10
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (100*60) //RWX 50
@@ -1591,7 +1591,7 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   30 // (mm) Z Clearance for Deploy/Stow //RWX Z PROBE
+#define Z_CLEARANCE_DEPLOY_PROBE   35 // (mm) Z Clearance for Deploy/Stow //RWX Z PROBE
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // (mm) Z position after probing is done
@@ -1599,8 +1599,8 @@
 #define Z_PROBE_LOW_POINT          -2 // (mm) Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -30 // RWX 10
-#define Z_PROBE_OFFSET_RANGE_MAX 30 // RWX 10
+#define Z_PROBE_OFFSET_RANGE_MIN -65 // RWX 10
+#define Z_PROBE_OFFSET_RANGE_MAX 65 // RWX 10
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST //RWX

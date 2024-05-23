@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "v1.2 by Roy Wash"
+#define SHORT_BUILD_VERSION "v1.8 by Roy Wash"
 
 /**
  * Verbose version identifier which should contain a reference to the location
